@@ -25,6 +25,11 @@ public class MainController
 
 	public MainController(){}
 
+	public MainController( String[] words )
+	{
+		rootSetArray = this.performMultipleStemming(words);
+	}
+
 	/**
 	 * This constructor will perform stemming on a single word
 	 * @param inflectedWord
@@ -169,18 +174,25 @@ public class MainController
 				}
 			}
 		}
+		/* set this class' rootSetArray */
 		this.rootSetArray = rsList;
+		/* update the class' lemmaArray and featuresArray */
+		rsToArrayStrings( rsList );
 		return rsList;
 	}
 
-	public void getArrayLemma()
+	public void rsToArrayStrings( RootSet[] rsList )
 	{
+		String[] lemmas = new String[rsList.length];
+		String[] features = new String[rsList.length];
 
-	}
-
-	public void getLemmasFromRootSetArray()
-	{
-
+		for( int i = 0; i < rsList.length; i++ )
+		{
+			lemmas[i] 	= rsList[i].getLemma();
+			features[i] = rsList[i].getFeatures();
+		}
+		this.lemmasArray 	= lemmas;
+		this.featuresArray 	= features;
 	}
 
 	/**
@@ -190,12 +202,26 @@ public class MainController
 	{
 		public static void main(String[] args)
 		{
-
+			Test t = new Test();
+			t.testMultipleWords();
 		}
 
 		private void testMultipleWords()
 		{
 			MainController mc = new MainController();
+
+			String[] words = { "sumama", "sumpa", "pagluto", "pinagluluto","."};
+			String[] features;
+			RootSet[] rsList = mc.performMultipleStemming(words);
+			for( int i = 0; i < rsList.length; i++ )
+			{
+				println( rsList[i].getLemma() );
+			}
+			features = mc.featuresArray;
+			for( int i = 0; i < features.length; i++ )
+			{
+				println( features[i] );
+			}
 		}
 
 		private void testSingleWord()
