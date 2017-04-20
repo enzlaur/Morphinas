@@ -18,6 +18,10 @@ public class MainController
 	String lemma;
 	String features;
 	boolean processed = false;
+	/* Array of Lemmas and Features */
+	String[] lemmasArray;
+	String[] featuresArray;
+	RootSet[] rootSetArray;
 
 	public MainController(){}
 
@@ -44,6 +48,11 @@ public class MainController
 		this.lemma	 	= rs.getLemma();
 		this.features 	= rs.getFeatures();
 		return rs;
+	}
+
+	public RootSet createRootSet(String word)
+	{
+		return affixCommand.generatePISTree3(word);
 	}
 
 	public String getInflectedWord()
@@ -106,7 +115,7 @@ public class MainController
 		return result;
 	}
 
-	public RootSet[] performMultipleStemming(String[] words) throws Exception
+	public RootSet[] performMultipleStemming(String[] words)
 	{
 		/* result */
 		RootSet[] rsList = new RootSet[ words.length];
@@ -121,6 +130,7 @@ public class MainController
 		for( int i = 0; i < words.length; i++ )
 		{
 			word 		= words[i];
+			original 	= word;
 			lowerCase	= word.toLowerCase();
 
 			if( i == 0 )
@@ -138,18 +148,39 @@ public class MainController
 			/* If the word does not start with a letter */
 			if( !Character.isLetter( word.charAt(0) ) )
 			{
-				rsList[i] = new RootSet(word, "#"+word, word);
+				rsList[i] = new RootSet(word, "#"+word, original);
 			}
 			else
 			{
 				if( dbHandler.lookup(word) )
 				{
-
+					rsList[i] = new RootSet(word, "#"+word, original);
+				}
+				else
+				{
+					if( createRootSet(word).getFeatures().equals("") || createRootSet(word).getFeatures().equals("") )
+					{
+						rsList[i] = new RootSet( word, "*"+word, original);
+					}
+					else
+					{
+						rsList[i] = createRootSet( word );
+					}
 				}
 			}
 		}
-
+		this.rootSetArray = rsList;
 		return rsList;
+	}
+
+	public void getArrayLemma()
+	{
+
+	}
+
+	public void getLemmasFromRootSetArray()
+	{
+
 	}
 
 	/**
