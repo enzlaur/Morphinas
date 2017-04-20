@@ -12,9 +12,9 @@ public class AffixList
 	};
 
 	final static String commonPrefixes[] = {
-			"nag", "na", "mag", "ma", "i", "i-", "ika-", "isa-", "ipa",
-			"ipag", "ipang", "pa", "pag", "um", "in", "ka", "ni", "pinaka",
-			"pina", "pinag"
+			"nag", "na", "mag", "ma", "i", "i-", "ika-", "isa-", "ipag",
+			"ipang", "ipa", "pag", "pa", "um", "in", "ka", "ni", "pinaka",
+			"pinag", "pina"
 	};
 
 	final static String prefixAssimiliation[] = {
@@ -41,7 +41,7 @@ public class AffixList
 
 	final static char[] possiblePhonemeCharReplacements = { 'd', 'b', 'p' };
 
-	final static char[] possibleAssimilationCharReplacements = { 'b', 'p' };
+	final static char[] possibleAssimilationCharReplacements = { 'p', 's', 'b', 'k', 'd', 'l' };
 
 	/**
 	 * List down all the affixes with their equivalent breakdown

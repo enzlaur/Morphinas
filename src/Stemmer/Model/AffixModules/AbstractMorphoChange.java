@@ -1,6 +1,7 @@
 package Stemmer.Model.AffixModules;
 
 
+import Stemmer.Model.DBHandler;
 import Stemmer.Model.Stem;
 
 /**
@@ -8,6 +9,7 @@ import Stemmer.Model.Stem;
  */
 public abstract class AbstractMorphoChange
 {
+	public DBHandler dbHandler;
 	public String foundAffix, foundAffixFeatured = null, leftStem, rightStem;
 	Stem stem;
 

@@ -4,6 +4,8 @@ import Stemmer.Model.AffixModules.AffixCommand;
 import Stemmer.Model.DBHandler;
 import Stemmer.Model.RootSet;
 
+import java.util.ArrayList;
+
 import static Utility.print.*;
 
 /**
@@ -17,8 +19,10 @@ public class MainController
 	String features;
 	boolean processed = false;
 
+	public MainController(){}
+
 	/**
-	 * This constructor will perform stemming
+	 * This constructor will perform stemming on a single word
 	 * @param inflectedWord
 	 * inflected word to be stemmed
 	 */
@@ -102,6 +106,51 @@ public class MainController
 		return result;
 	}
 
+	public RootSet[] performMultipleStemming(String[] words) throws Exception
+	{
+		/* result */
+		RootSet[] rsList = new RootSet[ words.length];
+		/* database for lookup */
+		DBHandler dbHandler = new DBHandler();
+		/* word level variables */
+		String word, lowerCase, original;
+		/* RootSet level variables */
+		String lemma, feature = "";
+
+		/* traverse the entire words array */
+		for( int i = 0; i < words.length; i++ )
+		{
+			word 		= words[i];
+			lowerCase	= word.toLowerCase();
+
+			if( i == 0 )
+			{
+				feature = ":FS";
+			}
+			if( !word.equals(lowerCase) && i > 0 )
+			{
+				feature = ":F";
+			}
+			word = lowerCase;
+			/*
+				start stemming
+			*/
+			/* If the word does not start with a letter */
+			if( !Character.isLetter( word.charAt(0) ) )
+			{
+				rsList[i] = new RootSet(word, "#"+word, word);
+			}
+			else
+			{
+				if( dbHandler.lookup(word) )
+				{
+
+				}
+			}
+		}
+
+		return rsList;
+	}
 
 	/**
 	 * Test only
@@ -109,6 +158,16 @@ public class MainController
 	public static class Test
 	{
 		public static void main(String[] args)
+		{
+
+		}
+
+		private void testMultipleWords()
+		{
+			MainController mc = new MainController();
+		}
+
+		private void testSingleWord()
 		{
 			MainController mc = new MainController("karamihan");
 			RootSet rs = mc.createRootSet();
