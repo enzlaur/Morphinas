@@ -65,6 +65,7 @@ public class Stemmer
 
 	/**
 	 * For testing only.
+	 * Runs test on a single word and an array of words
 	 */
 	public static class Test
 	{
