@@ -81,7 +81,7 @@ public class Stemmer
 		{
 			Stemmer stemmer = new Stemmer();
 
-			String word = "pamalo";
+			String word = "makasaysayang";
 
 			String result = stemmer.lemmatizeSingle( word );
 

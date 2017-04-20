@@ -15,7 +15,7 @@ public class Main
 	IOHandler ioHandler;
 
 	long startTime, endTime;
-	final String addressPrefix = "/Users/laurenz/Developer/morphinas/Morphinas/ReadFiles/";
+	final String addressPrefix = "/Users/laurenztolentino/Developer/morphinas/Morphinas/ReadFiles/";
 
 	/* testHPOST Variations to load */
 	final String testHPOSTuncleaned = "testHPOST-uncleaned.words";
@@ -30,7 +30,7 @@ public class Main
 	public void startTesting() throws Exception
 	{
 		ArrayList<Sentence> sentences;
-		ioHandler = new IOHandler( addressPrefix, minitext );
+		ioHandler = new IOHandler( addressPrefix, testHPOST);
 		String[] content = ioHandler.readFromFile();
 		sentences = ioHandler.createSentences( content );
 		println("Sentence Size: " + sentences.size());
@@ -48,7 +48,7 @@ public class Main
 	{
 		/* Input variables */
 		ArrayList<Sentence> sentences;
-		ioHandler = new IOHandler( addressPrefix, minitext );
+		ioHandler = new IOHandler( addressPrefix, testHPOST );
 		String[] content = ioHandler.readFromFile();
 		sentences = ioHandler.createSentences( content );
 		/* Output variables */
