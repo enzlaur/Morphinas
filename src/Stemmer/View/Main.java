@@ -30,7 +30,7 @@ public class Main
 	public void startTesting() throws Exception
 	{
 		ArrayList<Sentence> sentences;
-		ioHandler = new IOHandler( addressPrefix, testHPOST );
+		ioHandler = new IOHandler( addressPrefix, minitext );
 		String[] content = ioHandler.readFromFile();
 		sentences = ioHandler.createSentences( content );
 		println("Sentence Size: " + sentences.size());
@@ -48,7 +48,7 @@ public class Main
 	{
 		/* Input variables */
 		ArrayList<Sentence> sentences;
-		ioHandler = new IOHandler( addressPrefix, testHPOST );
+		ioHandler = new IOHandler( addressPrefix, minitext );
 		String[] content = ioHandler.readFromFile();
 		sentences = ioHandler.createSentences( content );
 		/* Output variables */

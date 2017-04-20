@@ -56,14 +56,14 @@ public class PrefixCommand extends AbstractAffixCommand
 	/*
 	  * ********************************************************************
 	  *                    Testing Only Beyond this Point
-	  * ***********************************this.*********************************
+	  * ********************************************************************
 	 */
 
 	public static class test
 	{
 		public static void main(String[] args)
 		{
-			String word = "malakas";
+			String word = "pagluto";
 			Stem stem  	= new Stem(word);
 			PrefixCommand pc = new PrefixCommand();
 			Stem newStem = pc.performStemmingModules(stem);

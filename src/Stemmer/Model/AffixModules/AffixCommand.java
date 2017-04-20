@@ -332,7 +332,7 @@ public class AffixCommand
 
 		public void original()
 		{
-//			ac.generatePISTree3("pinapahintayan");
+			ac.generatePISTree3("pinapahintayan");
 //			ac.generatePISTree3("marami"); // works
 //			ac.generatePISTree3("duguan"); // works
 //			ac.generatePISTree3("dugo-duguan"); // works well
@@ -342,7 +342,7 @@ public class AffixCommand
 //			ac.generatePISTree3("tawanan"); // works pero must reconsider suffix "nan"
 //			ac.generatePISTree3("napapanood");
 //			ac.generatePISTree3("gagawin");
-			ac.generatePISTree3("karamihan");
+//			ac.generatePISTree3("ipagluto");
 		}
 
 		public void testCreateBranch()

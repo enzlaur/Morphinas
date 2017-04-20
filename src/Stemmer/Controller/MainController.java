@@ -17,6 +17,7 @@ public class MainController
 	String inflectedWord;
 	String lemma;
 	String features;
+	String originalWord;
 	boolean processed = false;
 	/* Array of Lemmas and Features */
 	String[] lemmasArray;
@@ -38,6 +39,7 @@ public class MainController
 	public MainController(String inflectedWord)
 	{
 		this.inflectedWord = inflectedWord;
+		this.originalWord = inflectedWord;
 		createRootSet();
 	}
 
@@ -72,6 +74,10 @@ public class MainController
 //
 //			createRootSet();
 //		}
+		if( this.lemma == null || this.lemma.equalsIgnoreCase("") )
+		{
+			this.lemma = this.originalWord;
+		}
 		return this.lemma;
 	}
 
@@ -94,6 +100,11 @@ public class MainController
 //			return changedWord;
 //		}
 //		createRootSet();
+
+		if( this.lemma == null || this.lemma.equalsIgnoreCase("") )
+		{
+			this.features = "*" + this.originalWord;
+		}
 		return this.features;
 	}
 
@@ -186,6 +197,7 @@ public class MainController
 		String[] lemmas = new String[rsList.length];
 		String[] features = new String[rsList.length];
 
+
 		for( int i = 0; i < rsList.length; i++ )
 		{
 			lemmas[i] 	= rsList[i].getLemma();
@@ -195,6 +207,18 @@ public class MainController
 		this.featuresArray 	= features;
 	}
 
+	public String[] getLemmasArray() {
+		return lemmasArray;
+	}
+
+	public String[] getFeaturesArray() {
+		return featuresArray;
+	}
+
+	public RootSet[] getRootSetArray() {
+		return rootSetArray;
+	}
+
 	/**
 	 * Test only
 	 */
@@ -202,17 +226,30 @@ public class MainController
 	{
 		public static void main(String[] args)
 		{
-			Test t = new Test();
-			t.testMultipleWords();
+			testLemmasArray();
 		}
 
-		private void testMultipleWords()
+		private static void testLemmasArray()
+		{
+			String[] words = { "sumama", "sumpa", "pagluto", "pinagluluto","."};
+			MainController mc 	= new MainController(words);
+			String[] features 	= mc.getFeaturesArray();
+			String[] lemmas 	= mc.getLemmasArray();
+			println("");
+			for( int i = 0; i < lemmas.length; i++ )
+			{
+				println(lemmas[i]);
+			}
+		}
+
+		private static void testMultipleWords()
 		{
 			MainController mc = new MainController();
 
 			String[] words = { "sumama", "sumpa", "pagluto", "pinagluluto","."};
 			String[] features;
 			RootSet[] rsList = mc.performMultipleStemming(words);
+
 			for( int i = 0; i < rsList.length; i++ )
 			{
 				println( rsList[i].getLemma() );
@@ -224,7 +261,7 @@ public class MainController
 			}
 		}
 
-		private void testSingleWord()
+		private static void testSingleWord()
 		{
 			MainController mc = new MainController("karamihan");
 			RootSet rs = mc.createRootSet();

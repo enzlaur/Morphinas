@@ -39,7 +39,8 @@ public class InfixCommand extends AbstractAffixCommand
 
 		public void runTest()
 		{
-			String word = "pinapinta";
+//			String word = "pinapinta";
+			String word = "gagawin";
 			Stem stem = new Stem( word );
 			Stem newStem;
 			InfixCommand ic = new InfixCommand();

@@ -73,6 +73,7 @@ public class RemoveCommonInfix extends AbstractMorphoChange
 	 */
 	public boolean ruleNotCCAfterStemming(String word, int prevCharIndex, int nextCharIndex)
 	{
+//		println( word + "/" + prevCharIndex + "/" + nextCharIndex);
 		int consonantCount = 0;
 		prevCharIndex--;
 		nextCharIndex += 2;
