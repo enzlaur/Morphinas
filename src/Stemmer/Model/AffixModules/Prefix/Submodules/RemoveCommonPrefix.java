@@ -58,6 +58,32 @@ public class RemoveCommonPrefix extends AbstractMorphoChange
 						}
 
 					}
+					else if( hasAssimilationPrefixes( word ) )
+					{
+//						println("RCP: Has assimilation");
+						ConvertAssimilation ca = new ConvertAssimilation();
+						Stem caStem = ca.reduceStem( stem.cloneThis() );
+						if ( !caStem.getStemString().equalsIgnoreCase( stem.getStemString() ) )
+						{
+							// update the stem string
+							stem.setStemString( caStem.getStemString() );
+							// update the stem prefix features
+//							stem.setPrefixFeatures( stem.getPrefixFeatures() + cpcStem.getPrefixFeatures() );
+							stem.addPrefix( prefix );
+
+						}
+						else
+						{
+							this.foundAffix = leftStem;
+							rightStem 		= word.substring(prefixLength);
+							/* Update or Set Stem properties */
+							stem.setStemString(rightStem);
+//							stem.setFeature( stem.getFeature() + "" + applyFeature( prefix ));
+//							stem.setPrefixFeatures( stem.getPrefixFeatures() + applyFeature( prefix ));
+							stem.addPrefix( prefix );
+							return stem;
+						}
+					}
 					else
 					{
 						this.foundAffix = leftStem;
@@ -73,6 +99,20 @@ public class RemoveCommonPrefix extends AbstractMorphoChange
 			}
 		}
 		return stem;
+	}
+
+	public boolean hasAssimilationPrefixes( String word )
+	{
+		String[] assimilationPrefixes = AffixList.getPrefixAssimiliation();
+
+		for(int i = 0; i < assimilationPrefixes.length; i++ )
+		{
+			if( word.contains( assimilationPrefixes[i] ) )
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

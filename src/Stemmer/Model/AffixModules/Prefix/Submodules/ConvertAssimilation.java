@@ -27,6 +27,7 @@ public class ConvertAssimilation extends AbstractMorphoChange
 	@Override
 	public Stem reduceStem(Stem stem)
 	{
+//		println("ConvertAssim has been called");
 		/* Original word */
 		String word = stem.getStemString();
 		/* Word Parts as always */
@@ -48,11 +49,11 @@ public class ConvertAssimilation extends AbstractMorphoChange
 					{
 						leftPart = possibleReplacements[ replacementCnt ] + "";
 						combinedPart = leftPart + rightPart;
-						println( "combinedPart: " + combinedPart );
+//						println( "combinedPart: " + combinedPart );
 						/* check if root word */
 						if( dbHandler.lookup( combinedPart ) )
 						{
-							println("found");
+//							println("found");
 							stem.setStemString( combinedPart );
 							stem.setPrefixFeatures( stem.getPrefixFeatures() + applyFeature( assimilationPrefixes[k]));
 						}
@@ -76,7 +77,7 @@ public class ConvertAssimilation extends AbstractMorphoChange
 		{
 			ConvertAssimilation ca = new ConvertAssimilation();
 
-			String word = "pamalo";
+			String word = "pangatlo";
 			Stem stem = new Stem( word );
 			stem = ca.reduceStem( stem );
 			println( "Reduced stem: " + stem.getStemString() );

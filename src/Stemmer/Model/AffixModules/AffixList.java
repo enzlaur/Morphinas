@@ -41,7 +41,7 @@ public class AffixList
 
 	final static char[] possiblePhonemeCharReplacements = { 'd', 'b', 'p' };
 
-	final static char[] possibleAssimilationCharReplacements = { 'p', 's', 'b', 'k', 'd', 'l' };
+	final static char[] possibleAssimilationCharReplacements = { 'p', 's', 'b', 'k', 'd', 'l', 't' };
 
 	/**
 	 * List down all the affixes with their equivalent breakdown
