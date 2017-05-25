@@ -15,7 +15,7 @@ public class Main
 	IOHandler ioHandler;
 
 	long startTime, endTime;
-	final String addressPrefix = "/Users/laurenztolentino/Developer/morphinas/Morphinas/ReadFiles/";
+	final String addressPrefix = "/Users/laurenz/Developer/morphinas/Morphinas/ReadFiles/";
 
 	/* testHPOST Variations to load */
 	final String testHPOSTuncleaned = "testHPOST-uncleaned.words";

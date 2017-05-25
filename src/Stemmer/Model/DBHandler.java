@@ -16,7 +16,7 @@ import static Utility.print.println;
  */
 public class DBHandler
 {
-	static final String DB_URL 				= "jdbc:sqlite:morphinas.db";
+	static final String DB_URL 				= "jdbc:sqlite::resource:morphinas.db";
 	// SQL Returns
 	ResultSet rs;
 	PreparedStatement query 				= null;

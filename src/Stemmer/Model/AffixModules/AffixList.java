@@ -12,7 +12,7 @@ public class AffixList
 	};
 
 	final static String commonPrefixes[] = {
-			"nag", "na", "mag", "ma", "i", "i-", "ika-", "isa-", "ipag",
+			"pinang", "nag", "na", "mag", "ma", "i", "i-", "ika-", "isa-", "ipag",
 			"ipang", "ipa", "pag", "pa", "um", "in", "ka", "ni", "pinaka",
 			"pinag", "pina"
 	};

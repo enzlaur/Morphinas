@@ -9,6 +9,40 @@ import static Utility.print.*;
 public class Stemmer
 {
 
+	public static void main( String[] args )
+	{
+		println("testing single word");
+		testSingleWord();
+		println("testing multiple words using String[] words: { sumama, sumpa, pagluto, pinagluluto, . }");
+		testMultipleWords();
+	}
+
+	private static void testSingleWord()
+	{
+		Stemmer stemmer = new Stemmer();
+
+		String word = "makasaysayang";
+
+		String result = stemmer.lemmatizeSingle( word );
+
+		println("result: " + result);
+
+	}
+
+	private static void testMultipleWords()
+	{
+		Stemmer stemmer = new Stemmer();
+
+		String[] words = { "sumama", "sumpa", "pagluto", "pinagluluto", "pagkain", "."};
+		String[] features;
+
+		String[] result = stemmer.lemmatizeMultiple( words );
+
+		for(int i = 0; i < result.length; i++)
+		{
+			println( result[i] );
+		}
+	}
 	/**
 	 * Will perform lemmatization process on a array of Strings (including non-alphabet)
 	 * @param words

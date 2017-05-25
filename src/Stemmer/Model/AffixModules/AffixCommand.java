@@ -128,7 +128,7 @@ public class AffixCommand
 			}
 
 		}
-//		printTreeContent(ty);
+		printTreeContent(ty);
 		rs = getHighestFreqRoot( ty, word );
 //		println( rs.getLemma() + "->" + rs.getOriginalWord() + "-> " + rs.getFeatures() );
 		return new RootSet( rs.getLemma(), rs.getFeatures(), rs.getOriginalWord());
@@ -332,7 +332,8 @@ public class AffixCommand
 
 		public void original()
 		{
-			ac.generatePISTree3("pinapahintayan");
+			RootSet rs = ac.generatePISTree3("palagiang");
+			println("Result: " + rs.getLemma());
 //			ac.generatePISTree3("marami"); // works
 //			ac.generatePISTree3("duguan"); // works
 //			ac.generatePISTree3("dugo-duguan"); // works well
