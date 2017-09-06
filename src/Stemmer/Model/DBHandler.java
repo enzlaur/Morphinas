@@ -47,6 +47,7 @@ public class DBHandler
 		}
 		catch (SQLException e)
 		{
+			println("ISSUE AT CHECKING THE WORD: " + word);
 			println("Hi Ma'am/Sir, may problema po sa inyong query o baka sa inyong database connection");
 			println("Paki-check nalang po ang inyong DB_URL, Username, at Password at siguraduhin na ito ay tama");
 			e.printStackTrace();
@@ -98,6 +99,7 @@ public class DBHandler
 		public static void main(String args[])
 		{
 			DBHandler m = new DBHandler();
+			println("Word: " + m.lookup("'prospect"));
 			println("Word: " + m.lookup("marikit"));
 			println("Word: " + m.lookup("bangkay"));
 			println("Word: " + m.lookup("barangay"));

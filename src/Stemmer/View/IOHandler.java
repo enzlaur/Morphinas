@@ -13,7 +13,7 @@ import static Utility.print.*;
  */
 public class IOHandler
 {
-	String fileDirectory = "/Users/laurenz/Developer/Morphinas/morphinas/ReadFiles/";
+	String fileDirectory = "/Users/laurenztolentino/Developer/Morphinas/morphinas/ReadFiles/";
 	String fileName		 = "words.txt";
 
 	public IOHandler()
@@ -27,6 +27,11 @@ public class IOHandler
 	public IOHandler(String fileDirectory, String fileName)
 	{
 		this.fileDirectory 	= fileDirectory;
+		this.fileName 		= fileName;
+	}
+
+	public IOHandler(String fileName)
+	{
 		this.fileName 		= fileName;
 	}
 

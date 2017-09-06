@@ -128,7 +128,7 @@ public class AffixCommand
 			}
 
 		}
-		printTreeContent(ty);
+//		printTreeContent(ty);
 		rs = getHighestFreqRoot( ty, word );
 //		println( rs.getLemma() + "->" + rs.getOriginalWord() + "-> " + rs.getFeatures() );
 		return new RootSet( rs.getLemma(), rs.getFeatures(), rs.getOriginalWord());

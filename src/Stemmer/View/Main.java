@@ -3,7 +3,9 @@ package Stemmer.View;
 import Stemmer.Controller.MainController;
 import Stemmer.Model.DBHandler;
 import Stemmer.Model.Sentence;
+import Stemmer.Stemmer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static Utility.print.*;
@@ -15,7 +17,7 @@ public class Main
 	IOHandler ioHandler;
 
 	long startTime, endTime;
-	final String addressPrefix = "/Users/laurenz/Developer/morphinas/Morphinas/ReadFiles/";
+	final String addressPrefix = "/Users/laurenztolentino/Developer/morphinas/Morphinas/ReadFiles/";
 
 	/* testHPOST Variations to load */
 	final String testHPOSTuncleaned = "testHPOST-uncleaned.words";
@@ -24,6 +26,12 @@ public class Main
 	final String morphRead 			= "morphRead.pinas";
 	final String minitext			= "minitext.txt";
 	final String readThisFile		= "correct_words.txt";
+	final String pcariEval			= "pcari.eval.fil";
+
+
+	final char[] nonAlphaCircum = { '"', '\'', '(', ')' };
+	final char[] punctuation 	= { '!', '.', ',', '?', '\''};
+	final char[] nums = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 	public Main() {}
 
@@ -44,11 +52,137 @@ public class Main
 		}
 	}
 
+	public void performStemmingLemmaOnly() throws Exception
+	{
+		/* New Stemmer */
+		Stemmer stemmer 	= new Stemmer();
+//		DBHandler dbHandler = new DBHandler();
+		/* Input Variables */
+		ArrayList<Sentence> sentences;
+		ArrayList<String> words;
+		String[] content;
+		/* Output Variables */
+		ArrayList<String> newWords;
+		ArrayList<Sentence> newSentence;
+		/* Temp Variables */
+		String lowerCase, reduced;
+		Sentence tempSentence;
+		int i, max;
+		/* Initialization */
+		ioHandler 	= new IOHandler( pcariEval );
+		content 	= ioHandler.readFromFile();
+		sentences 	= ioHandler.createSentences( content );
+		newSentence = new ArrayList<Sentence>();
+
+		for( Sentence sentence : sentences )
+		{
+			words = (ArrayList<String>)sentence.getWords().clone();
+			newWords = new ArrayList<String>();
+			i = 0; max = words.size();
+			for( String word : words )
+			{
+				lowerCase 	= word.toLowerCase();
+
+				if( checkIfContainsNonAlpha(word) && lowerCase.length() > 3 )
+				{
+					lowerCase 	= cleanWord(lowerCase);
+				}
+				// double check because there are idiots in this world
+				if( checkIfContainsNonAlpha(word) && lowerCase.length() > 3 )
+				{
+					lowerCase 	= cleanWord(lowerCase);
+				}
+				if( !isANumber(0, lowerCase) && lowerCase.length() < 11)
+				{
+					reduced = stemmer.lemmatizeSingle(lowerCase);
+				}
+				else
+				{
+					reduced = lowerCase;
+				}
+				newWords.add( reduced );
+			}
+			tempSentence = new Sentence();
+			tempSentence.setWords( newWords );
+			newSentence.add( tempSentence );
+		}
+
+		printSentencesContent( newSentence );
+	}
+
+	public boolean isANumber( int index, String word )
+	{
+		for( int i = 0; i < nums.length; i++ )
+		{
+			if( word.charAt( index ) == nums[i] )
+				return true;
+		}
+		return false;
+	}
+
+	public String removeWithin( String word )
+	{
+		return word = word.replace("\'", "");
+	}
+
+	public boolean checkIfContainsNonAlpha( String word )
+	{
+		for( char item : nonAlphaCircum )
+		{
+			if ( word.contains( item + "") )
+			{
+				return true;
+			}
+		}
+		for( char item : punctuation )
+		{
+			if( word.contains( item + ""))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String cleanWord(String word)
+	{
+		char first 	= word.charAt( 0 );
+		char last 	= word.charAt( word.length() - 1);
+
+		for( int i = 0; i < nonAlphaCircum.length; i++ )
+		{
+			if( first == nonAlphaCircum[i] )
+			{
+				word = word.substring(1);
+			}
+			if( last == nonAlphaCircum[i] )
+			{
+				word = word.substring(0, word.length() - 1);
+			}
+		}
+		if( word.length() > 2 )
+		{
+			char befLast= word.charAt( word.length() - 2 );
+
+			for( int i = 0; i < punctuation.length; i++ )
+			{
+				if( befLast == punctuation[i] )
+				{
+					word = word.substring(0, word.length() - 2 );
+
+				}
+			}
+		}
+
+		word = removeWithin( word );
+
+		return word;
+	}
 	public void performStemming() throws Exception
 	{
 		/* Input variables */
 		ArrayList<Sentence> sentences;
-		ioHandler = new IOHandler( addressPrefix, testHPOST );
+		ioHandler = new IOHandler( addressPrefix, pcariEval );
 		String[] content = ioHandler.readFromFile();
 		sentences = ioHandler.createSentences( content );
 		/* Output variables */
@@ -147,7 +281,7 @@ public class Main
 			println("");
 		}
 
-		ioHandler.printToTxtFileRoot("stemmerResult", toPrint);
+		ioHandler.printToTxtFileRoot("pcariResult", toPrint);
 	}
 
 	public static class Test
@@ -155,7 +289,16 @@ public class Main
 		public static void main(String[] args) throws Exception
 		{
 			Main m = new Main();
-			m.performStemming();
+//			m.performStemming();
+			m.performStemmingLemmaOnly();
+//			Test t = new Test();
+//			t.cleanWordTest();
+		}
+
+		public void cleanWordTest()
+		{
+			Main m = new Main();
+			println( m.cleanWord("'prospect'") );
 		}
 	}
 
